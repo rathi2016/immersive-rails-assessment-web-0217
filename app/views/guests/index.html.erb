@@ -3,5 +3,6 @@
 <ul>
   <% @guests.each do |guest| %>
     <li><%= guest.name %></li>
+    <%= link_to "Show", guest_path(@guest) %>
   <% end %>
 </ul>
