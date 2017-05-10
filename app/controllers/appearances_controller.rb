@@ -1,4 +1,4 @@
-class AppearanceController < ApplicationController
+class AppearancesController < ApplicationController
   before_action :find_param, only:[ :edit, :update]
 
   def new
@@ -12,7 +12,7 @@ class AppearanceController < ApplicationController
     if @appearance.save
       redirect_to @appearance.episode
     else
-      redirect_to new_appearance_path
+      redirect_to  new_appearance_path
     end
   end
 
@@ -22,7 +22,7 @@ class AppearanceController < ApplicationController
 
   def update
     @appearance.update(appearance_params)
-    redirect_to new_appearance_path
+    redirect_to  new_appearance_path
   end
 
   private
