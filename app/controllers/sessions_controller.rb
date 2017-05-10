@@ -1,27 +1,20 @@
 class SessionsController < ApplicationController
 
   def new
+    @user = User.new
+    render :login
   end
 
   def create
-    @account = Account.find_by("LOWER(email) = ?", account_params[:email].downcase)
 
-    if @account.present? && @account.authenticate(account_params[:password])
-      cookies.permanent.signed[:account_id] = @account.id
-      redirect_to dashboard_url
+    user = User.find_by(username: params[:username])
+    if user && user.authenticate(params[:password])
+      session[:user_id] = user.id
+      redirect_to episodes_path
     else
-      render :new
+      redirect_to login_path
     end
   end
 
-  def destroy
-    cookies.delete(:account_id)
-    redirect_to root_url
-  end
 
-  private
-
-  def account_params
-    params.require(:account).permit(:email, :password)
-  end
 end
